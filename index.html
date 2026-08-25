@@ -1,467 +1,1570 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Child Astrology - Begrijp je kind nog beter">
-    <title>Child Astrology - Ella Kristioglo</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <title>Child Astrology - EK | Ella Kristioglo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Cosmic Colors from Logo */
+            --cosmic-dark: #1a1a3e;
+            --cosmic-purple: #4a2c7a;
+            --cosmic-violet: #7b3fa0;
+            --gold-primary: #d4af37;
+            --gold-light: #f4d03f;
+            --planet-pink: #ff9ff3;
+            --planet-blue: #74b9ff;
+            --planet-green: #55efc4;
+            --planet-purple: #a29bfe;
+            --text-dark: #2c3e50;
+            --text-light: #ffffff;
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--cosmic-dark) 0%, var(--cosmic-purple) 50%, var(--cosmic-violet) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Stars Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, transparent);
+            background-size: 200px 200px;
+            animation: twinkle 5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* App Container */
+        .app {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--cosmic-dark) 0%, var(--cosmic-purple) 100%);
+            border-right: 3px solid var(--gold-primary);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--gold-primary);
+        }
+
+        .logo-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.5));
+        }
+
+        .logo h1 {
+            color: var(--gold-primary);
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .logo-subtitle {
+            color: var(--planet-pink);
+            font-size: 14px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 10px 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            gap: 15px;
+            font-size: 16px;
+        }
+
+        .nav-link:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
+            color: var(--cosmic-dark);
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            padding: 35px;
+            margin: 25px 0;
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.25);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.35);
+        }
+
+        .card-title {
+            color: var(--cosmic-purple);
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-title::before {
+            content: '✨';
+            font-size: 32px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
+            color: var(--cosmic-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--cosmic-violet) 0%, var(--planet-purple) 100%);
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+        }
+
+        /* Home Section */
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(255, 159, 243, 0.2) 100%);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .welcome-banner h2 {
+            color: var(--gold-primary);
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-banner p {
+            color: var(--text-light);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .action-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .action-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .action-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .action-title {
+            color: var(--cosmic-purple);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .action-desc {
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Children Section */
+        .child-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .child-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 25px;
+            padding: 30px;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .child-card::before {
+            content: '⭐';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            opacity: 0.3;
+        }
+
+        .child-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        .child-name {
+            font-size: 28px;
+            color: var(--cosmic-purple);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .child-info {
+            color: var(--text-dark);
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        .zodiac-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .zodiac-badge {
+            background: linear-gradient(135deg, var(--planet-pink) 0%, #f368e0 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255, 159, 243, 0.4);
+        }
+
+        /* Notes Section */
+        .note-form {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px dashed var(--gold-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--cosmic-purple);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid var(--planet-purple);
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .note-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 18px;
+            padding: 25px;
+            margin: 15px 0;
+            border-left: 5px solid var(--planet-pink);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .note-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .note-date {
+            color: var(--cosmic-purple);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .note-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .note-tag {
+            background: linear-gradient(135deg, var(--planet-purple) 0%, #6c5ce7 100%);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        /* Tarot Section */
+        .tarot-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .tarot-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .tarot-option {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 30px 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .tarot-option:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.5);
+        }
+
+        .tarot-option-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .tarot-cards-display {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .tarot-card {
+            width: 180px;
+            height: 280px;
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.5);
+            border: 3px solid white;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .tarot-card:hover {
+            transform: translateY(-15px) rotateY(10deg);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.7);
+        }
+
+        .tarot-card-back {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            background: radial-gradient(circle at 50% 50%, var(--gold-primary) 0%, var(--cosmic-purple) 100%);
+            border-radius: 12px;
+        }
+
+        /* Method Section */
+        .method-steps {
+            margin-top: 30px;
+        }
+
+        .method-step {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 6px solid var(--gold-primary);
+            box-shadow: 0 8px 25px rgba(74, 44, 122, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .method-step:hover {
+            transform: translateX(12px);
+            box-shadow: 0 12px 40px rgba(74, 44, 122, 0.25);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
+            color: var(--cosmic-dark);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            color: var(--cosmic-purple);
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        /* Consultation Section */
+        .consultation-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .consultation-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        /* Settings Section */
+        .settings-group {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-title {
+            color: var(--cosmic-purple);
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .language-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            background: linear-gradient(135deg, var(--planet-purple) 0%, #6c5ce7 100%);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(162, 155, 254, 0.5);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 100%);
+            color: var(--cosmic-dark);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 3px solid var(--gold-primary);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .app {
+                flex-direction: column;
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .nav-link {
+                flex-direction: column;
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+
+            .nav-icon {
+                font-size: 20px;
+            }
+
+            .welcome-banner h2 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .child-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--gold-primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cosmic-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-light);
+        }
+    </style>
 </head>
 <body>
-    <!-- Звездный фон -->
-    <div class="stars"></div>
-    
-    <!-- Навигация -->
-    <nav class="sidebar">
-        <div class="nav-header">
-            <img src="assets/logo.png" alt="Child Astrology" class="logo">
-            <span class="app-title">Child Astrology</span>
-        </div>
-        
-        <div class="nav-items">
-            <div class="nav-item active" data-screen="home">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-text">Home</span>
+    <div class="app">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>CHILD ASTROLOGY</h1>
+                <div class="logo-subtitle">EK • Ella Kristioglo </div>
             </div>
-            <div class="nav-item" data-screen="kinderen">
-                <span class="nav-icon">👶</span>
-                <span class="nav-text">Kinderen</span>
-            </div>
-            <div class="nav-item" data-screen="notities">
-                <span class="nav-icon"></span>
-                <span class="nav-text">Notities</span>
-            </div>
-            <div class="nav-item" data-screen="methode">
-                <span class="nav-icon"></span>
-                <span class="nav-text">Methode</span>
-            </div>
-            <div class="nav-item" data-screen="tarot">
-                <span class="nav-icon">🎴</span>
-                <span class="nav-text">Tarot</span>
-            </div>
-            <div class="nav-item" data-screen="consultaties">
-                <span class="nav-icon">💬</span>
-                <span class="nav-text">Consultaties</span>
-            </div>
-            <div class="nav-item" data-screen="instellingen">
-                <span class="nav-icon">⚙️</span>
-                <span class="nav-text">Instellingen</span>
-            </div>
-            <div class="nav-item" data-screen="over">
-                <span class="nav-icon">👤</span>
-                <span class="nav-text">Over</span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Основной контент -->
-    <main class="content">
-        
-        <!-- ЭКРАН: HOME -->
-        <section id="home" class="screen active">
-            <div class="hero">
-                <h1>Begrijp je kind nog beter</h1>
-                <p class="subtitle">Persoonlijke ouderbegeleiding door astrologie</p>
-            </div>
-
-            <div class="quick-actions">
-                <div class="action-card" onclick="showScreen('kinderen')">
-                    <div class="action-icon"></div>
-                    <h3>Mijn kinderen</h3>
-                    <p>Beheer profielen en observaties</p>
-                </div>
-
-                <div class="action-card" onclick="showScreen('notities')">
-                    <div class="action-icon">📝</div>
-                    <h3>Nieuwe notitie</h3>
-                    <p>Schrijf een observatie op</p>
-                </div>
-
-                <div class="action-card" onclick="showScreen('tarot')">
-                    <div class="action-icon">🎴</div>
-                    <h3>Tarot voor reflectie</h3>
-                    <p>Trek een kaart voor vandaag</p>
-                </div>
-            </div>
-
-            <div class="daily-widget">
-                <h2>🌟 Vandaag voor Vicky</h2>
-                <div class="moon-phase">
-                    <span class="moon-icon">🌙</span>
-                    <p>Maan in Waterman - perfecte dag voor creatieve activiteiten</p>
-                </div>
-                <div class="daily-tip">
-                    <strong>Tip van de dag:</strong>
-                    <p>Let op haar reactie op nieuwe situaties. Dit geeft inzicht in haar natuurlijke aanpak.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ЭКРАН: KINDEREN (Профили детей) -->
-        <section id="kinderen" class="screen">
-            <h1>Mijn kinderen</h1>
             
-            <div class="children-list">
-                <div class="child-profile" data-child-id="vicky">
-                    <div class="child-avatar">
-                        <span class="avatar-letter">V</span>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showSection('home')">
+                        <span class="nav-icon">🏠</span>
+                        <span data-lang="nav_home">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('children')">
+                        <span class="nav-icon">👶</span>
+                        <span data-lang="nav_children">Mijn kinderen</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('notes')">
+                        <span class="nav-icon"></span>
+                        <span data-lang="nav_notes">Пометки</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('tarot')">
+                        <span class="nav-icon">🎴</span>
+                        <span data-lang="nav_tarot">Tarot</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('method')">
+                        <span class="nav-icon">✨</span>
+                        <span data-lang="nav_method">Methode</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('consultation')">
+                        <span class="nav-icon"></span>
+                        <span data-lang="nav_consultation">Consultaties</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('settings')">
+                        <span class="nav-icon">⚙️</span>
+                        <span data-lang="nav_settings">Instellingen</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="welcome-banner">
+                    <h2>✨ Welkom bij Child Astrology ✨</h2>
+                    <p data-lang="home_welcome">Понимайте ребёнка глубже<br>Не ярлык и не предсказание, а новые вопросы, наблюдения и способы поддержки.<br><strong>Бережно · точно · понятно родителю</strong></p>
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-card" onclick="showSection('children')">
+                        <div class="action-icon">👶</div>
+                        <div class="action-title" data-lang="action_add_child">Добавить ребёнка</div>
+                        <div class="action-desc" data-lang="action_add_child_desc">Создайте профиль и начните наблюдения</div>
                     </div>
-                    <div class="child-info">
-                        <h2>Vicky</h2>
-                        <p class="birth-date">3 augustus 2026 • 07:16</p>
-                        <p class="birth-place">Haarlem, Nederland</p>
-                        <div class="zodiac-signs">
-                            <span class="zodiac-badge">♌ Leeuw</span>
-                            <span class="zodiac-badge">♏ Schorpioen</span>
+                    
+                    <div class="action-card" onclick="showSection('notes')">
+                        <div class="action-icon">📝</div>
+                        <div class="action-title" data-lang="action_new_note">Новая пометка</div>
+                        <div class="action-desc" data-lang="action_new_note_desc">Запишите свои наблюдения</div>
+                    </div>
+                    
+                    <div class="action-card" onclick="showSection('tarot')">
+                        <div class="action-icon"></div>
+                        <div class="action-title" data-lang="action_tarot">Tarot voor reflectie</div>
+                        <div class="action-desc" data-lang="action_tarot_desc">Получите карту для размышлений</div>
+                    </div>
+                    
+                    <div class="action-card" onclick="showSection('consultation')">
+                        <div class="action-icon"></div>
+                        <div class="action-title" data-lang="action_consultation">Консультация</div>
+                        <div class="action-desc" data-lang="action_consultation_desc">Свяжитесь с Эллой через WhatsApp</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Children Section -->
+            <section id="children" class="section">
+                <div class="card">
+                    <h2 class="card-title" data-lang="children_title">Mijn kinderen</h2>
+                    
+                    <div class="child-grid" id="childrenGrid">
+                        <!-- Children will be loaded here -->
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="addChild()" style="margin-top: 25px;">
+                        <span>➕</span>
+                        <span data-lang="btn_add_child">Kind toevoegen</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Notes Section -->
+            <section id="notes" class="section">
+                <div class="card">
+                    <h2 class="card-title" data-lang="notes_title">Пометки и наблюдения</h2>
+                    
+                    <div class="note-form">
+                        <h3 style="color: var(--cosmic-purple); margin-bottom: 20px;">📝 Новая пометка</h3>
+                        
+                        <div class="form-group">
+                            <label data-lang="note_child">Ребёнок</label>
+                            <select id="noteChildSelect">
+                                <option value="">Выберите ребёнка</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-lang="note_title">Заголовок</label>
+                            <input type="text" id="noteTitle" placeholder="Например: Наблюдение за настроением">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-lang="note_content">Содержание</label>
+                            <textarea id="noteContent" placeholder="Опишите ваши наблюдения..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-lang="note_tags">Теги (через запятую)</label>
+                            <input type="text" id="noteTags" placeholder="#поведение #эмоции #достижения">
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="saveNote()">
+                            <span>💾</span>
+                            <span data-lang="btn_save_note">Сохранить пометку</span>
+                        </button>
+                    </div>
+                    
+                    <div id="notesList">
+                        <!-- Notes will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tarot Section -->
+            <section id="tarot" class="section">
+                <div class="card">
+                    <h2 class="card-title" data-lang="tarot_title">Tarot voor reflectie</h2>
+                    
+                    <div class="tarot-container">
+                        <p style="color: var(--text-light); font-size: 18px; margin-bottom: 30px;" data-lang="tarot_desc">
+                            Kaarten worden programmatisch en willekeurig gekozen uit een volledige set van 78 kaarten.<br>
+                            Ze voorspellen het lot van een kind niet, maar bieden een andere blik op de situatie.
+                        </p>
+                        
+                        <div class="tarot-options">
+                            <div class="tarot-option" onclick="drawTarot(1)">
+                                <div class="tarot-option-icon"></div>
+                                <div style="font-size: 20px; font-weight: bold; color: var(--cosmic-purple);" data-lang="tarot_one">Één kaart</div>
+                                <div style="color: var(--text-dark); margin-top: 10px;" data-lang="tarot_one_desc">Een snelle focus voor vandaag</div>
+                            </div>
+                            
+                            <div class="tarot-option" onclick="drawTarot(3)">
+                                <div class="tarot-option-icon">🎴🎴</div>
+                                <div style="font-size: 20px; font-weight: bold; color: var(--cosmic-purple);" data-lang="tarot_three">Drie kaarten</div>
+                                <div style="color: var(--text-dark); margin-top: 10px;" data-lang="tarot_three_desc">Situatie - les - Mogelijkheid</div>
+                            </div>
+                        </div>
+                        
+                        <div id="tarotDisplay" class="tarot-cards-display"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Method Section -->
+            <section id="method" class="section">
+                <div class="card">
+                    <h2 class="card-title" data-lang="method_title">De 6-stappen Methode</h2>
+                    
+                    <div class="method-steps">
+                        <div class="method-step">
+                            <div class="step-number">1</div>
+                            <div class="step-title" data-lang="method_step1_title">Observeer</div>
+                            <div data-lang="method_step1_desc">Let op gedrag, emoties en reacties van uw kind zonder oordeel. Noteer wat u ziet en voelt.</div>
+                        </div>
+                        
+                        <div class="method-step">
+                            <div class="step-number">2</div>
+                            <div class="step-title" data-lang="method_step2_title">Verbind</div>
+                            <div data-lang="method_step2_desc">Maak contact met uw eigen gevoel en dat van uw kind. Wat probeert hij/zij te communiceren?</div>
+                        </div>
+                        
+                        <div class="method-step">
+                            <div class="step-number">3</div>
+                            <div class="step-title" data-lang="method_step3_title">Reflecteer</div>
+                            <div data-lang="method_step3_desc">Gebruik de tarotkaarten of astrologische inzichten voor een andere Perspektive.</div>
+                        </div>
+                        
+                        <div class="method-step">
+                            <div class="step-number">4</div>
+                            <div class="step-title" data-lang="method_step4_title">Begrijp</div>
+                            <div data-lang="method_step4_desc">Ontdek patronen en onderliggende behoeften achter het gedrag.</div>
+                        </div>
+                        
+                        <div class="method-step">
+                            <div class="step-number">5</div>
+                            <div class="step-title" data-lang="method_step5_title">Ondersteun</div>
+                            <div data-lang="method_step5_desc">Kies bewuste manieren om uw kind te ondersteunen in zijn/haar ontwikkeling.</div>
+                        </div>
+                        
+                        <div class="method-step">
+                            <div class="step-number">6</div>
+                            <div class="step-title" data-lang="method_step6_title">Evalueer</div>
+                            <div data-lang="method_step6_desc">Kijk terug op wat heeft gewerkt en pas aan waar nodig. Vier de vooruitgang!</div>
                         </div>
                     </div>
-                    <button class="btn-edit" onclick="editChild('vicky')">️</button>
                 </div>
+            </section>
 
-                <button class="btn-add-child" onclick="addChild()">
-                    <span class="add-icon">+</span>
-                    <span>Kind toevoegen</span>
-                </button>
-            </div>
-
-            <div class="child-details" id="vicky-details">
-                <h3>Over Vicky</h3>
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <strong>Zon in Leeuw</strong>
-                        <p>Natuurlijk leiderschap, warmte en creativiteit</p>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Maan in Schorpioen</strong>
-                        <p>Diepe emoties, intensiteit en sterke intuïtie</p>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Ascendant</strong>
-                        <p>Wordt berekend op basis van geboortetijd</p>
-                    </div>
-                </div>
-
-                <h3>Recente notities</h3>
-                <div class="notes-preview" id="vicky-notes">
-                    <p class="no-notes">Nog geen notities. <a href="#" onclick="showScreen('notities')">Voeg er een toe →</a></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ЭКРАН: NOTITIES (Пометки) -->
-        <section id="notities" class="screen">
-            <h1>Notities & Observaties</h1>
-
-            <div class="note-form">
-                <h2>Nieuwe notitie</h2>
-                <div class="form-group">
-                    <label>Kies een kind:</label>
-                    <select id="note-child">
-                        <option value="vicky">Vicky</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Onderwerp:</label>
-                    <input type="text" id="note-title" placeholder="Bijv. Eerste dag op school">
-                </div>
-                <div class="form-group">
-                    <label>Observatie:</label>
-                    <textarea id="note-content" rows="5" placeholder="Wat heb je opgemerkt?"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Stemming:</label>
-                    <div class="mood-selector">
-                        <button class="mood-btn" data-mood="happy">😊</button>
-                        <button class="mood-btn" data-mood="calm">😌</button>
-                        <button class="mood-btn" data-mood="anxious">😰</button>
-                        <button class="mood-btn" data-mood="angry">😠</button>
+            <!-- Consultation Section -->
+            <section id="consultation" class="section">
+                <div class="card">
+                    <h2 class="card-title" data-lang="consultation_title">Persoonlijke Consultatie</h2>
+                    
+                    <div class="consultation-card">
+                        <div class="consultation-icon"></div>
+                        <h3 style="color: var(--cosmic-purple); font-size: 26px; margin-bottom: 20px;" data-lang="consultation_subtitle">Stuur Ella persoonlijk een bericht</h3>
+                        <p style="color: var(--text-dark); margin-bottom: 30px; line-height: 1.6;" data-lang="consultation_desc">
+                            Wil je jouw situatie persoonlijk bespreken? Open WhatsApp en stuur Ella een bericht.<br><br>
+                            <strong>📱 WhatsApp:</strong> +31 6 12345678<br>
+                            <strong>✉️ Email:</strong> ella@childastrology.com
+                        </p>
+                        
+                        <a href="https://wa.me/31612345678?text=Hallo%20Ella,%20ik%20heb%20een%20vraag%20over%20Child%20Astrology" 
+                           class="btn btn-whatsapp" target="_blank">
+                            <span>📱</span>
+                            <span data-lang="btn_whatsapp">Bericht via WhatsApp</span>
+                        </a>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Tags (gescheiden door komma's):</label>
-                    <input type="text" id="note-tags" placeholder="gedrag, emoties, school">
-                </div>
-                <button class="btn-primary" onclick="saveNote()">💾 Opslaan</button>
-            </div>
+            </section>
 
-            <div class="notes-list" id="all-notes">
-                <h2>Alle notities</h2>
-                <div class="notes-container">
-                    <p class="no-notes">Nog geen notities opgeslagen</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ЭКРАН: METHODE (Метод) -->
-        <section id="methode" class="screen">
-            <h1>De Child Astrology-methode</h1>
-            <p class="method-intro">Observeren vóór interpreteren</p>
-
-            <div class="method-steps">
-                <div class="method-step" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Feit: wat doet het kind precies?</h3>
-                        <p>Observeer zonder oordeel. Beschrijf alleen wat je ziet en hoort.</p>
-                        <div class="step-example">
-                            <strong>Voorbeeld:</strong> "Vicky huilt wanneer andere kinderen haar speelgoed afpakken"
+            <!-- Settings Section -->
+            <section id="settings" class="section">
+                <div class="card">
+                    <h2 class="card-title" data-lang="settings_title">Instellingen</h2>
+                    
+                    <div class="settings-group">
+                        <div class="settings-title">
+                            <span>🌍</span>
+                            <span data-lang="settings_language">Taal / Language</span>
+                        </div>
+                        
+                        <div class="language-buttons">
+                            <button class="lang-btn active" onclick="changeLanguage('nl')">NL</button>
+                            <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+                            <button class="lang-btn" onclick="changeLanguage('ua')">UA</button>
+                            <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
                         </div>
                     </div>
-                </div>
-
-                <div class="method-step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Context: wat gebeurde ervoor?</h3>
-                        <p>Beschrijf de situatie, de omgeving, wie er aanwezig waren.</p>
-                        <div class="step-example">
-                            <strong>Voorbeeld:</strong> "Ze speelde rustig in de hoek toen twee kinderen kwamen"
+                    
+                    <div class="settings-group">
+                        <div class="settings-title">
+                            <span>📱</span>
+                            <span data-lang="settings_app">App Installatie</span>
                         </div>
+                        <p style="margin-bottom: 15px;" data-lang="settings_pwa_desc">Installeer deze app op je apparaat voor snellere toegang.</p>
+                        <button class="btn btn-secondary" onclick="installApp()">
+                            <span>📥</span>
+                            <span data-lang="btn_install">App Installeren</span>
+                        </button>
                     </div>
-                </div>
-
-                <div class="method-step" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Symboliek: welk thema keert terug?</h3>
-                        <p>Herken je een patroon? Welk astrologisch thema past hierbij?</p>
-                        <div class="step-example">
-                            <strong>Voorbeeld:</strong> "Dit past bij haar Maan in Schorpioen - intense emoties bij verlies"
+                    
+                    <div class="settings-group">
+                        <div class="settings-title">
+                            <span>🔒</span>
+                            <span data-lang="settings_privacy">Privacy</span>
                         </div>
+                        <p data-lang="settings_privacy_desc">
+                            Alle gegevens worden lokaal opgeslagen op je apparaat. 
+                            Wij verzamelen geen persoonlijke informatie. 
+                            Je bent volledig eigenaar van je data.
+                        </p>
                     </div>
-                </div>
-
-                <div class="method-step" data-step="4">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Toets: betekent het gezin dit?</h3>
-                        <p>Bespreek met je partner of gezin. Herkennen zij dit patroon?</p>
-                        <div class="step-example">
-                            <strong>Voorbeeld:</strong> "Papa herkent dit ook bij zichzelf"
+                    
+                    <div class="settings-group">
+                        <div class="settings-title">
+                            <span>👤</span>
+                            <span data-lang="settings_about">Over de auteur</span>
                         </div>
+                        <p style="line-height: 1.8;">
+                            <strong>Ella Kristioglo</strong><br>
+                            Child Astrology specialist<br><br>
+                            <em data-lang="about_philosophy">
+                                Mijn missie is om ouders te helpen hun kinderen dieper te begrijpen 
+                                door de wijsheid van astrologie te combineren met praktische observatie.
+                            </em>
+                        </p>
                     </div>
                 </div>
+            </section>
+        </main>
+    </div>
 
-                <div class="method-step" data-step="5">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h3>Veiligheid: is professionele hulp nodig?</h3>
-                        <p>Beoordeel of de situatie beyond wat je zelf kunt begeleiden.</p>
-                        <div class="step-example">
-                            <strong>Voorbeeld:</strong> "Nee, dit is normaal ontwikkelingsgedrag"
-                        </div>
+    <script>
+        // Data Storage
+        let children = JSON.parse(localStorage.getItem('children') || '[]');
+        let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        let currentLanguage = localStorage.getItem('language') || 'nl';
+
+        // Translations
+        const translations = {
+            nl: {
+                nav_home: 'Home',
+                nav_children: 'Mijn kinderen',
+                nav_notes: 'Notities',
+                nav_tarot: 'Tarot',
+                nav_method: 'Methode',
+                nav_consultation: 'Consultaties',
+                nav_settings: 'Instellingen',
+                home_welcome: 'Begrijp je kind dieper\nGeen label of voorspelling, maar nieuwe vragen, observaties en manieren van ondersteuning.\nZorgzaam · nauwkeurig · duidelijk voor ouders',
+                action_add_child: 'Kind toevoegen',
+                action_add_child_desc: 'Maak een profiel en begin met observeren',
+                action_new_note: 'Nieuwe notitie',
+                action_new_note_desc: 'Schrijf je observaties op',
+                action_tarot: 'Tarot voor reflectie',
+                action_tarot_desc: 'Ontvang een kaart om over na te denken',
+                action_consultation: 'Consultatie',
+                action_consultation_desc: 'Neem contact op met Ella via WhatsApp',
+                children_title: 'Mijn kinderen',
+                btn_add_child: 'Kind toevoegen',
+                notes_title: 'Notities en observaties',
+                note_child: 'Kind',
+                note_title: 'Titel',
+                note_content: 'Inhoud',
+                note_tags: 'Tags (gescheiden door komma)',
+                btn_save_note: 'Notitie opslaan',
+                tarot_title: 'Tarot voor reflectie',
+                tarot_desc: 'Kaarten worden programmatisch en willekeurig gekozen uit een volledige set van 78 kaarten. Ze voorspellen het lot van een kind niet, maar bieden een andere blik op de situatie.',
+                tarot_one: 'Één kaart',
+                tarot_one_desc: 'Een snelle focus voor vandaag',
+                tarot_three: 'Drie kaarten',
+                tarot_three_desc: 'Situatie - les - Mogelijkheid',
+                method_title: 'De 6-stappen Methode',
+                method_step1_title: 'Observeer',
+                method_step1_desc: 'Let op gedrag, emoties en reacties van uw kind zonder oordeel. Noteer wat u ziet en voelt.',
+                method_step2_title: 'Verbind',
+                method_step2_desc: 'Maak contact met uw eigen gevoel en dat van uw kind. Wat probeert hij/zij te communiceren?',
+                method_step3_title: 'Reflecteer',
+                method_step3_desc: 'Gebruik de tarotkaarten of astrologische inzichten voor een andere Perspektive.',
+                method_step4_title: 'Begrijp',
+                method_step4_desc: 'Ontdek patronen en onderliggende behoeften achter het gedrag.',
+                method_step5_title: 'Ondersteun',
+                method_step5_desc: 'Kies bewuste manieren om uw kind te ondersteunen in zijn/haar ontwikkeling.',
+                method_step6_title: 'Evalueer',
+                method_step6_desc: 'Kijk terug op wat heeft gewerkt en pas aan waar nodig. Vier de vooruitgang!',
+                consultation_title: 'Persoonlijke Consultatie',
+                consultation_subtitle: 'Stuur Ella persoonlijk een bericht',
+                consultation_desc: 'Wil je jouw situatie persoonlijk bespreken? Open WhatsApp en stuur Ella een bericht.',
+                btn_whatsapp: 'Bericht via WhatsApp',
+                settings_title: 'Instellingen',
+                settings_language: 'Taal / Language',
+                settings_app: 'App Installatie',
+                settings_pwa_desc: 'Installeer deze app op je apparaat voor snellere toegang.',
+                btn_install: 'App Installeren',
+                settings_privacy: 'Privacy',
+                settings_privacy_desc: 'Alle gegevens worden lokaal opgeslagen op je apparaat. Wij verzamelen geen persoonlijke informatie. Je bent volledig eigenaar van je data.',
+                settings_about: 'Over de auteur',
+                about_philosophy: 'Mijn missie is om ouders te helpen hun kinderen dieper te begrijpen door de wijsheid van astrologie te combineren met praktische observatie.'
+            },
+            ru: {
+                nav_home: 'Главная',
+                nav_children: 'Мои дети',
+                nav_notes: 'Пометки',
+                nav_tarot: 'Таро',
+                nav_method: 'Метод',
+                nav_consultation: 'Консультации',
+                nav_settings: 'Настройки',
+                home_welcome: 'Понимайте ребёнка глубже\nНе ярлык и не предсказание, а новые вопросы, наблюдения и способы поддержки.\nБережно · точно · понятно родителю',
+                action_add_child: 'Добавить ребёнка',
+                action_add_child_desc: 'Создайте профиль и начните наблюдения',
+                action_new_note: 'Новая пометка',
+                action_new_note_desc: 'Запишите свои наблюдения',
+                action_tarot: 'Таро для рефлексии',
+                action_tarot_desc: 'Получите карту для размышлений',
+                action_consultation: 'Консультация',
+                action_consultation_desc: 'Свяжитесь с Эллой через WhatsApp',
+                children_title: 'Мои дети',
+                btn_add_child: 'Добавить ребёнка',
+                notes_title: 'Пометки и наблюдения',
+                note_child: 'Ребёнок',
+                note_title: 'Заголовок',
+                note_content: 'Содержание',
+                note_tags: 'Теги (через запятую)',
+                btn_save_note: 'Сохранить пометку',
+                tarot_title: 'Таро для рефлексии',
+                tarot_desc: 'Карты выбираются программно и случайно из полной колоды в 78 карт. Они не предсказывают судьбу ребёнка, но предлагают другой взгляд на ситуацию.',
+                tarot_one: 'Одна карта',
+                tarot_one_desc: 'Быстрый фокус на сегодня',
+                tarot_three: 'Три карты',
+                tarot_three_desc: 'Ситуация - урок - возможность',
+                method_title: 'Метод 6 шагов',
+                method_step1_title: 'Наблюдайте',
+                method_step1_desc: 'Отмечайте поведение, эмоции и реакции вашего ребёнка без осуждения. Записывайте то, что видите и чувствуете.',
+                method_step2_title: 'Соединяйтесь',
+                method_step2_desc: 'Установите контакт со своими чувствами и чувствами ребёнка. Что он/она пытается сообщить?',
+                method_step3_title: 'Размышляйте',
+                method_step3_desc: 'Используйте карты Таро или астрологические инсайты для другого взгляда.',
+                method_step4_title: 'Понимайте',
+                method_step4_desc: 'Откройте паттерны и скрытые потребности за поведением.',
+                method_step5_title: 'Поддерживайте',
+                method_step5_desc: 'Выбирайте осознанные способы поддержки ребёнка в его развитии.',
+                method_step6_title: 'Оценивайте',
+                method_step6_desc: 'Оглянитесь на то, что сработало, и внесите коррективы. Отпразднуйте прогресс!',
+                consultation_title: 'Персональная консультация',
+                consultation_subtitle: 'Отправьте Элле личное сообщение',
+                consultation_desc: 'Хотите обсудить вашу ситуацию лично? Откройте WhatsApp и отправьте Элле сообщение.',
+                btn_whatsapp: 'Сообщение через WhatsApp',
+                settings_title: 'Настройки',
+                settings_language: 'Язык / Language',
+                settings_app: 'Установка приложения',
+                settings_pwa_desc: 'Установите это приложение на ваше устройство для быстрого доступа.',
+                btn_install: 'Установить приложение',
+                settings_privacy: 'Приватность',
+                settings_privacy_desc: 'Все данные хранятся локально на вашем устройстве. Мы не собираем личную информацию. Вы полностью владеете своими данными.',
+                settings_about: 'Об авторе',
+                about_philosophy: 'Моя миссия — помочь родителям глубже понять своих детей, сочетая мудрость астрологии с практическим наблюдением.'
+            },
+            ua: {
+                nav_home: 'Головна',
+                nav_children: 'Мої діти',
+                nav_notes: 'Нотатки',
+                nav_tarot: 'Таро',
+                nav_method: 'Метод',
+                nav_consultation: 'Консультації',
+                nav_settings: 'Налаштування',
+                home_welcome: 'Розумійте дитину глибше\nНе ярлик і не передбачення, а нові запитання, спостереження та способи підтримки.\nДбайливо · точно · зрозуміло батькам',
+                action_add_child: 'Додати дитину',
+                action_add_child_desc: 'Створіть профіль і почніть спостереження',
+                action_new_note: 'Нова нотатка',
+                action_new_note_desc: 'Запишіть свої спостереження',
+                action_tarot: 'Таро для рефлексії',
+                action_tarot_desc: 'Отримайте карту для роздумів',
+                action_consultation: 'Консультація',
+                action_consultation_desc: "Зв'яжіться з Еллою через WhatsApp",
+                children_title: 'Мої діти',
+                btn_add_child: 'Додати дитину',
+                notes_title: 'Нотатки та спостереження',
+                note_child: 'Дитина',
+                note_title: 'Заголовок',
+                note_content: 'Зміст',
+                note_tags: 'Теги (через кому)',
+                btn_save_note: 'Зберегти нотатку',
+                tarot_title: 'Таро для рефлексії',
+                tarot_desc: 'Карти вибираються програмно і випадково з повної колоди в 78 карт. Вони не передбачають долю дитини, але пропонують інший погляд на ситуацію.',
+                tarot_one: 'Одна карта',
+                tarot_one_desc: 'Швидкий фокус на сьогодні',
+                tarot_three: 'Три карти',
+                tarot_three_desc: 'Ситуація - урок - можливість',
+                method_title: 'Метод 6 кроків',
+                method_step1_title: 'Спостерігайте',
+                method_step1_desc: 'Відмічайте поведінку, емоції та реакції вашої дитини без осуду. Записуйте те, що бачите і відчуваєте.',
+                method_step2_title: "З'єднуйтесь",
+                method_step2_desc: "Встановіть контакт зі своїми почуттями та почуттями дитини. Що він/вона намагається повідомити?",
+                method_step3_title: 'Розмірковуйте',
+                method_step3_desc: 'Використовуйте карти Таро або астрологічні інсайти для іншого погляду.',
+                method_step4_title: 'Розумійте',
+                method_step4_desc: 'Відкрийте патерни та приховані потреби за поведінкою.',
+                method_step5_title: 'Підтримуйте',
+                method_step5_desc: 'Вибирайте свідомі способи підтримки дитини в її розвитку.',
+                method_step6_title: 'Оцінюйте',
+                method_step6_desc: 'Озирніться на те, що спрацювало, і внесіть корективи. Відсвяткуйте прогрес!',
+                consultation_title: 'Персональна консультація',
+                consultation_subtitle: "Надішліть Еллі особисте повідомлення",
+                consultation_desc: "Хочете обговорити вашу ситуацію особисто? Відкрийте WhatsApp і надішліть Еллі повідомлення.",
+                btn_whatsapp: 'Повідомлення через WhatsApp',
+                settings_title: 'Налаштування',
+                settings_language: 'Мова / Language',
+                settings_app: 'Встановлення додатку',
+                settings_pwa_desc: 'Встановіть цей додаток на ваш пристрій для швидкого доступу.',
+                btn_install: 'Встановити додаток',
+                settings_privacy: 'Приватність',
+                settings_privacy_desc: 'Усі дані зберігаються локально на вашому пристрої. Ми не збираємо особисту інформацію. Ви повністю володієте своїми даними.',
+                settings_about: 'Про автора',
+                about_philosophy: 'Моя місія — допомогти батькам глибше зрозуміти своїх дітей, поєднуючи мудрість астрології з практичним спостереженням.'
+            },
+            en: {
+                nav_home: 'Home',
+                nav_children: 'My Children',
+                nav_notes: 'Notes',
+                nav_tarot: 'Tarot',
+                nav_method: 'Method',
+                nav_consultation: 'Consultations',
+                nav_settings: 'Settings',
+                home_welcome: 'Understand your child deeper\nNot a label or prediction, but new questions, observations and ways of support.\nCaring · accurate · clear for parents',
+                action_add_child: 'Add Child',
+                action_add_child_desc: 'Create a profile and start observing',
+                action_new_note: 'New Note',
+                action_new_note_desc: 'Write down your observations',
+                action_tarot: 'Tarot for Reflection',
+                action_tarot_desc: 'Receive a card for contemplation',
+                action_consultation: 'Consultation',
+                action_consultation_desc: 'Contact Ella via WhatsApp',
+                children_title: 'My Children',
+                btn_add_child: 'Add Child',
+                notes_title: 'Notes and Observations',
+                note_child: 'Child',
+                note_title: 'Title',
+                note_content: 'Content',
+                note_tags: 'Tags (comma separated)',
+                btn_save_note: 'Save Note',
+                tarot_title: 'Tarot for Reflection',
+                tarot_desc: 'Cards are chosen programmatically and randomly from a full deck of 78 cards. They do not predict a child\'s fate, but offer a different perspective on the situation.',
+                tarot_one: 'One Card',
+                tarot_one_desc: 'A quick focus for today',
+                tarot_three: 'Three Cards',
+                tarot_three_desc: 'Situation - lesson - opportunity',
+                method_title: 'The 6-step Method',
+                method_step1_title: 'Observe',
+                method_step1_desc: 'Pay attention to your child\'s behavior, emotions and reactions without judgment. Note what you see and feel.',
+                method_step2_title: 'Connect',
+                method_step2_desc: 'Connect with your own feelings and those of your child. What is he/she trying to communicate?',
+                method_step3_title: 'Reflect',
+                method_step3_desc: 'Use tarot cards or astrological insights for a different perspective.',
+                method_step4_title: 'Understand',
+                method_step4_desc: 'Discover patterns and underlying needs behind the behavior.',
+                method_step5_title: 'Support',
+                method_step5_desc: 'Choose conscious ways to support your child in his/her development.',
+                method_step6_title: 'Evaluate',
+                method_step6_desc: 'Look back at what worked and adjust where needed. Celebrate progress!',
+                consultation_title: 'Personal Consultation',
+                consultation_subtitle: 'Send Ella a personal message',
+                consultation_desc: 'Would you like to discuss your situation personally? Open WhatsApp and send Ella a message.',
+                btn_whatsapp: 'Message via WhatsApp',
+                settings_title: 'Settings',
+                settings_language: 'Language',
+                settings_app: 'App Installation',
+                settings_pwa_desc: 'Install this app on your device for faster access.',
+                btn_install: 'Install App',
+                settings_privacy: 'Privacy',
+                settings_privacy_desc: 'All data is stored locally on your device. We do not collect personal information. You fully own your data.',
+                settings_about: 'About the Author',
+                about_philosophy: 'My mission is to help parents understand their children deeper by combining the wisdom of astrology with practical observation.'
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChildren();
+            loadNotes();
+            updateLanguage();
+            checkForUpdates();
+        });
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.closest('.nav-link').classList.add('active');
+            
+            // Refresh data if needed
+            if (sectionId === 'children') loadChildren();
+            if (sectionId === 'notes') {
+                loadNotes();
+                updateChildSelect();
+            }
+        }
+
+        // Children Management
+        function addChild() {
+            const name = prompt('Naam van het kind / Имя ребёнка:');
+            if (!name) return;
+            
+            const birthDate = prompt('Geboortedatum (YYYY-MM-DD) / Дата рождения:');
+            const birthTime = prompt('Geboortetijd (optioneel) / Время рождения (необязательно):');
+            const birthPlace = prompt('Geboorteplaats (optioneel) / Место рождения (необязательно):');
+            const sunSign = prompt('Zonneteken / Знак Солнца:');
+            const moonSign = prompt('Maanteken / Знак Луны:');
+            
+            const child = {
+                id: Date.now(),
+                name: name,
+                birthDate: birthDate || '',
+                birthTime: birthTime || '',
+                birthPlace: birthPlace || '',
+                sunSign: sunSign || '',
+                moonSign: moonSign || '',
+                createdAt: new Date().toISOString()
+            };
+            
+            children.push(child);
+            localStorage.setItem('children', JSON.stringify(children));
+            
+            loadChildren();
+            alert('Kind toegevoegd! / Ребёнок добавлен! ✨');
+        }
+
+        function loadChildren() {
+            const grid = document.getElementById('childrenGrid');
+            if (!grid) return;
+            
+            if (children.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-light); text-align: center; grid-column: 1/-1; font-size: 18px;">Nog geen kinderen toegevoegd / Пока нет добавленных детей</p>';
+                return;
+            }
+            
+            grid.innerHTML = children.map(child => `
+                <div class="child-card">
+                    <div class="child-name">${child.name}</div>
+                    ${child.birthDate ? `<div class="child-info"> ${child.birthDate}</div>` : ''}
+                    ${child.birthTime ? `<div class="child-info">⏰ ${child.birthTime}</div>` : ''}
+                    ${child.birthPlace ? `<div class="child-info"> ${child.birthPlace}</div>` : ''}
+                    <div class="zodiac-badges">
+                        ${child.sunSign ? `<span class="zodiac-badge">☀️ ${child.sunSign}</span>` : ''}
+                        ${child.moonSign ? `<span class="zodiac-badge">🌙 ${child.moonSign}</span>` : ''}
                     </div>
+                    <button class="btn btn-secondary" onclick="deleteChild(${child.id})" style="margin-top: 15px; width: 100%;">
+                        🗑️ Verwijderen
+                    </button>
                 </div>
+            `).join('');
+        }
 
-                <div class="method-step" data-step="6">
-                    <div class="step-number">6</div>
-                    <div class="step-content">
-                        <h3>Experiment: welke stap herhalen we 7-14 dagen?</h3>
-                        <p>Kies één concrete actie om te proberen en observeer het effect.</p>
-                        <div class="step-example">
-                            <strong>Voorbeeld:</strong> "Ik ga haar eerst vragen wat ze voelt voordat ik reageer"
-                        </div>
-                    </div>
-                </div>
-            </div>
+        function deleteChild(id) {
+            if (confirm('Weet je zeker dat je dit kind wilt verwijderen? / Вы уверены, что хотите удалить этого ребёнка?')) {
+                children = children.filter(c => c.id !== id);
+                localStorage.setItem('children', JSON.stringify(children));
+                loadChildren();
+            }
+        }
 
-            <div class="method-progress">
-                <h3>Jouw voortgang</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="method-progress" style="width: 0%"></div>
-                </div>
-                <p id="progress-text">0 van 6 stappen voltooid</p>
-            </div>
-        </section>
+        // Notes Management
+        function updateChildSelect() {
+            const select = document.getElementById('noteChildSelect');
+            if (!select) return;
+            
+            const currentValue = select.value;
+            select.innerHTML = '<option value="">' + (currentLanguage === 'ru' ? 'Выберите ребёнка' : currentLanguage === 'ua' ? 'Виберіть дитину' : currentLanguage === 'en' ? 'Select child' : 'Kies een kind') + '</option>';
+            
+            children.forEach(child => {
+                const option = document.createElement('option');
+                option.value = child.id;
+                option.textContent = child.name;
+                select.appendChild(option);
+            });
+            
+            select.value = currentValue;
+        }
 
-        <!-- ЭКРАН: TAROT (Таро) -->
-        <section id="tarot" class="screen">
-            <h1>Tarot voor reflectie</h1>
-            <p class="tarot-intro">Kaarten worden programmatisch en willekeurig gekozen uit een volledige set van 78 kaarten. Ze voorspellen het lot van een kind niet, maar bieden een andere blik op de situatie.</p>
+        function saveNote() {
+            const childId = document.getElementById('noteChildSelect').value;
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').value;
+            const tagsInput = document.getElementById('noteTags').value;
+            
+            if (!childId || !title || !content) {
+                alert(currentLanguage === 'ru' ? 'Заполните все обязательные поля' : currentLanguage === 'ua' ? 'Заповніть всі обов\'язкові поля' : 'Vul alle verplichte velden in');
+                return;
+            }
+            
+            const tags = tagsInput.split(',').map(t => t.trim()).filter(t => t);
+            
+            const note = {
+                id: Date.now(),
+                childId: parseInt(childId),
+                title: title,
+                content: content,
+                tags: tags,
+                createdAt: new Date().toISOString()
+            };
+            
+            notes.push(note);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            
+            // Clear form
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            document.getElementById('noteTags').value = '';
+            
+            loadNotes();
+            alert(currentLanguage === 'ru' ? 'Пометка сохранена!' : currentLanguage === 'ua' ? 'Нотатку збережено!' : 'Notitie opgeslagen! ✨');
+        }
 
-            <div class="tarot-options">
-                <div class="tarot-option" onclick="drawCards(1)">
-                    <div class="tarot-card-preview">
-                        <span class="card-symbol">◇</span>
-                    </div>
-                    <h3>Eén kaart</h3>
-                    <p>Een snelle focus voor vandaag</p>
-                </div>
-
-                <div class="tarot-option" onclick="drawCards(3)">
-                    <div class="tarot-card-preview">
-                        <span class="card-symbol">◇ ◇ ◇</span>
-                    </div>
-                    <h3>Drie kaarten</h3>
-                    <p>Situatie - Actie - Mogelijkheid</p>
-                </div>
-            </div>
-
-            <div class="tarot-question">
-                <label>Waarover wil je reflecteren?</label>
-                <textarea id="tarot-question-text" rows="3" placeholder="Stel je vraag of beschrijf de situatie..."></textarea>
-            </div>
-
-            <div class="tarot-result" id="tarot-result">
-                <div class="cards-container" id="cards-container"></div>
-                <div class="interpretation" id="interpretation"></div>
-            </div>
-        </section>
-
-        <!-- ЭКРАН: CONSULTATIES (Консультации) -->
-        <section id="consultaties" class="screen">
-            <h1>Persoonlijke consultaties</h1>
-
-            <div class="consultation-info">
-                <div class="info-card">
-                    <h2>Stuur Ella persoonlijk een bericht</h2>
-                    <p>Wil je jouw situatie persoonlijk bespreken? Open WhatsApp en stuur Ella een bericht.</p>
-                    <p class="privacy-note">🔒 Het profiel en de gegevens van het kind worden nooit automatisch toegevoegd.</p>
-                </div>
-
-                <a href="https://wa.me/31612554778" target="_blank" class="whatsapp-btn">
-                    <span class="wa-icon">📱</span>
-                    <span>Bericht via WhatsApp</span>
-                </a>
-            </div>
-
-            <div class="consultation-types">
-                <h2>Soorten consultaties</h2>
-                <div class="type-card">
-                    <h3>🌟 Eerste consultatie</h3>
-                    <p>Complete analyse van de geboortehoroscoop van je kind</p>
-                    <span class="duration">60 minuten</span>
-                </div>
-                <div class="type-card">
-                    <h3> Vervolgconsultatie</h3>
-                    <p>Bespreking van observaties en verdieping</p>
-                    <span class="duration">45 minuten</span>
-                </div>
-                <div class="type-card">
-                    <h3>‍👩‍👧 Gezinsconsultatie</h3>
-                    <p>Samenstelling en dynamiek binnen het gezin</p>
-                    <span class="duration">90 minuten</span>
-                </div>
-            </div>
-
-            <div class="pre-fill-form">
-                <h3>📋 Bericht voorbereiden</h3>
-                <p>Vul onderstaande gegevens in om je bericht voor te bereiden:</p>
-                <div class="form-group">
-                    <label>Naam van het kind:</label>
-                    <input type="text" id="consult-child" value="Vicky">
-                </div>
-                <div class="form-group">
-                    <label>Geboortedatum:</label>
-                    <input type="text" id="consult-date" value="03-08-2026">
-                </div>
-                <div class="form-group">
-                    <label>Je vraag of situatie:</label>
-                    <textarea id="consult-question" rows="4" placeholder="Beschrijf kort waar je hulp bij nodig hebt..."></textarea>
-                </div>
-                <button class="btn-primary" onclick="prepareWhatsAppMessage()"> Bericht openen in WhatsApp</button>
-            </div>
-        </section>
-
-        <!-- ЭКРАН: INSTELLINGEN (Настройки) -->
-        <section id="instellingen" class="screen">
-            <h1>Instellingen</h1>
-
-            <div class="settings-section">
-                <h2> Installeren op je telefoon</h2>
-                <p>Voeg de app toe aan je beginscherm en open hem als een gewone app.</p>
-                <button class="btn-install" onclick="installApp()">
-                    <span>⬇️</span>
-                    <span>App installeren</span>
-                </button>
-                <div class="install-instructions">
-                    <details>
-                        <summary>Installatie-instructies</summary>
-                        <p><strong>iOS (iPhone/iPad):</strong></p>
-                        <ol>
-                            <li>Open deze pagina in Safari</li>
-                            <li>Tik op het deel-icoon (vierkant met pijl)</li>
-                            <li>Kies "Voeg toe aan beginscherm"</li>
-                        </ol>
-                        <p><strong>Android:</strong></p>
-                        <ol>
-                            <li>Open deze pagina in Chrome</li>
-                            <li>Tik op het menu (drie puntjes)</li>
-                            <li>Kies "Toevoegen aan startscherm"</li>
-                        </ol>
-                    </details>
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h2>🌐 Taal van de app</h2>
-                <div class="language-selector">
-                    <button class="lang-btn active" data-lang="nl">🇳🇱 Nederlands</button>
-                    <button class="lang-btn" data-lang="ru">🇷 Русский</button>
-                    <button class="lang-btn" data-lang="ua">🇺 Українська</button>
-                    <button class="lang-btn" data-lang="en">🇧 English</button>
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h2> Gegevens & privacy</h2>
-                <p>Consultatiekaarten worden alleen op dit apparaat bewaard. Deel de link niet terwijl cliëntgegevens openstaan.</p>
-                <div class="privacy-actions">
-                    <button class="btn-secondary" onclick="exportData()">️ Back-up downloaden</button>
-                    <button class="btn-secondary" onclick="importData()">️ Back-up herstellen</button>
-                    <button class="btn-danger" onclick="clearAllData()">🗑️ Alle gegevens verwijderen</button>
-                </div>
-                <p class="data-count">💾 Totaal: <span id="data-count">0</span> notities opgeslagen</p>
-            </div>
-        </section>
-
-        <!-- ЭКРАН: OVER (О приложении) -->
-        <section id="over" class="screen">
-            <h1>Over de app</h1>
-
-            <div class="about-author">
-                <h2>Ella Kristioglo</h2>
-                <p class="author-title">Orthopedagoog • Astroloog • Moeder</p>
-                <p>Ella Kristioglo is de maker van het programma Child Astrology, specialist in orthopedagogiek en logopedie, astroloog en moeder van twee dochters. Door kennis over de ontwikkeling van kinderen te verbinden met astrologie en haar persoonlijke ervaring als moeder, ontwikkelde Ella een programma dat ouders helpt het karakter, de talenten en de emotionele behoeften van hun kind beter te begrijpen. Haar belangrijkste doel is ieder kind te helpen opgroeien in een sfeer van liefde, acceptatie en begrip.</p>
+        function loadNotes() {
+            const list = document.getElementById('notesList');
+            if (!list) return;
+            
+            if (notes.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-dark); text-align: center; padding: 30px;">Nog geen notities / Пока нет заметок</p>';
+                return;
+            }
+            
+            // Sort by date (newest first)
+            const sortedNotes = [...notes].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            list.innerHTML = sortedNotes.map(note => {
+                const child = children.find(c => c.id === parseInt(note.childId));
+                const date = new Date(note.createdAt).toLocaleDateString(currentLanguage === 'ru' ? 'ru-RU' : currentLanguage === 'ua' ? 'uk-UA' : currentLanguage === 'en' ? 'en-US' : 'nl-NL');
                 
-                <div class="author-values">
-                    <span class="value-badge">+ Liefde</span>
-                    <span class="value-badge">+ Acceptatie</span>
-                    <span class="value-badge">+ Begrip</span>
-                </div>
-            </div>
+                return `
+                    <div class="note-card">
+                        <div class="note-header">
+                            <div class="note-date">${child ? child.name + ' - ' : ''}${date}</div>
+                            <button onclick="deleteNote(${note.id})" style="background: none; border: none; cursor: pointer; font-size: 20px;">🗑️</button>
+                        </div>
+                        <h4 style="color: var(--cosmic-purple); margin-bottom: 10px;">${note.title}</h4>
+                        <p style="color: var(--text-dark); line-height: 1.6; white-space: pre-wrap;">${note.content}</p>
+                        ${note.tags.length > 0 ? `
+                            <div class="note-tags">
+                                ${note.tags.map(tag => `<span class="note-tag">${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
 
-            <div class="about-app">
-                <h2>Over de app</h2>
-                <p><strong>Versie:</strong> 2.0</p>
-                <p><strong>Originele methode van Ella</strong></p>
-                <p>Na het eerste bezoek zijn de belangrijkste schermen offline beschikbaar.</p>
-                
-                <div class="app-features">
-                    <h3>Functies:</h3>
-                    <ul>
-                        <li>✅ Profielen van kinderen beheren</li>
-                        <li>✅ Observaties noteren en taggen</li>
-                        <li>✅ 6-staps methode toepassen</li>
-                        <li>✅ Tarot voor reflectie</li>
-                        <li>✅ Persoonlijke consultaties</li>
-                        <li>✅ Alle gegevens lokaal opgeslagen</li>
-                        <li>✅ Offline beschikbaar</li>
-                    </ul>
-                </div>
-            </div>
+        function deleteNote(id) {
+            if (confirm(currentLanguage === 'ru' ? 'Удалить эту пометку?' : currentLanguage === 'ua' ? 'Видалити цю нотатку?' : 'Notitie verwijderen?')) {
+                notes = notes.filter(n => n.id !== id);
+                localStorage.setItem('notes', JSON.stringify(notes));
+                loadNotes();
+            }
+        }
 
-            <div class="contact-info">
-                <h2>Contact</h2>
-                <p> Email: ella@kristioglo.com</p>
-                <p>📱 WhatsApp: +31 6 12554778</p>
-                <p>🌐 Website: kodrebenka.eu.org</p>
-            </div>
-        </section>
+        // Tarot
+        const tarotCards = [
+            { name: 'De Dwaas', meaning: 'Nieuwe beginnen, spontaniteit, avontuur' },
+            { name: 'De Magiër', meaning: 'Manifestatie, kracht, vaardigheid' },
+            { name: 'De Hogepriesteres', meaning: 'Intuïtie, mysterie, onderbewustzijn' },
+            { name: 'De Keizerin', meaning: 'Vruchtbaarheid, overvloed, nurturing' },
+            { name: 'De Keizer', meaning: 'Autoriteit, structuur, stabiliteit' },
+            { name: 'De Hierofant', meaning: 'Traditie, geloof, conformiteit' },
+            { name: 'De Geliefden', meaning: 'Liefde, harmonie, keuzes' },
+            { name: 'De Strijdwagen', meaning: 'Controle, wilskracht, overwinning' },
+            { name: 'Kracht', meaning: 'Moed, overtuiging, geduld' },
+            { name: 'De Kluizenaar', meaning: 'Introspectie, eenzaamheid, leiding' }
+        ];
 
-    </main>
+        function drawTarot(count) {
+            const display = document.getElementById('tarotDisplay');
+            display.innerHTML = '';
+            
+            const drawnCards = [];
+            while (drawnCards.length < count) {
+                const randomIndex = Math.floor(Math.random() * tarotCards.length);
+                if (!drawnCards.includes(tarotCards[randomIndex])) {
+                    drawnCards.push(tarotCards[randomIndex]);
+                }
+            }
+            
+            drawnCards.forEach((card, index) => {
+                setTimeout(() => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'tarot-card';
+                    cardDiv.innerHTML = '<div class="tarot-card-back">🎴</div>';
+                    
+                    display.appendChild(cardDiv);
+                    
+                    // Flip animation
+                    setTimeout(() => {
+                        cardDiv.innerHTML = `
+                            <div style="padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 12px;">
+                                <div style="font-size: 50px; margin-bottom: 15px;">🔮</div>
+                                <div style="font-weight: bold; color: var(--cosmic-purple); font-size: 18px; margin-bottom: 10px;">${card.name}</div>
+                                <div style="font-size: 14px; color: var(--text-dark); text-align: center;">${card.meaning}</div>
+                            </div>
+                        `;
+                        cardDiv.style.transform = 'rotateY(180deg)';
+                    }, 300 + (index * 200));
+                }, index * 300);
+            });
+        }
 
-    <script src="script.js"></script>
+        // Language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            updateLanguage();
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function updateLanguage() {
+            const texts = translations[currentLanguage];
+            
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (texts[key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = texts[key];
+                    } else {
+                        element.textContent = texts[key];
+                    }
+                }
+            });
+        }
+
+        // PWA Install
+        function installApp() {
+            alert(currentLanguage === 'ru' ? 'Om deze app te installeren:\n\n1. Klik op het deel-icoon (📤)\n2. Kies "Zet op beginscherm"\n3. Bevestig de installatie\n\nVoor mobiele apparaten werkt dit het beste.' : currentLanguage === 'ua' ? 'Щоб встановити цей додаток:\n\n1. Натисніть на іконку поділитися ()\n2. Виберіть "Додати на початковий екран"\n3. Підтвердіть встановлення\n\nНа мобільних пристроях це працює найкраще.' : 'To install this app:\n\n1. Click the share icon (📤)\n2. Choose "Add to Home Screen"\n3. Confirm installation\n\nThis works best on mobile devices.');
+        }
+
+        // Check for updates
+        function checkForUpdates() {
+            // This would check for new versions in a real app
+            console.log('Checking for updates...');
+        }
+
+        // Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript,' + encodeURIComponent(`
+                self.addEventListener('install', e => {
+                    e.waitUntil(self.skipWaiting());
+                });
+                self.addEventListener('activate', e => {
+                    e.waitUntil(self.clients.claim());
+                });
+                self.addEventListener('fetch', e => {
+                    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+                });
+            `)).catch(() => {
+                // Service worker registration failed
+            });
+        }
+    </script>
 </body>
 </html>
