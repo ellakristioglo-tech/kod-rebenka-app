@@ -1,43 +1,467 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="nl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#081a36">
-<title>Child Astrology · EK</title>
-<style>
-:root{--navy:#081a36;--navy2:#10294d;--navy3:#18385e;--ivory:#f7f1e8;--surface:#fffdf9;--ink:#13233d;--muted:#71809a;--blue:#88a8d0;--lav:#aaa0c2;--gold:#d1a85f;--line:rgba(16,41,77,.12);--shadow:0 18px 50px rgba(4,18,42,.16)}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#ebe7e1;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{width:min(100%,460px);min-height:100vh;margin:auto;background:var(--ivory);box-shadow:0 0 60px rgba(5,18,40,.15);padding-bottom:94px;overflow:hidden}.hero{position:relative;min-height:438px;padding:22px 25px 94px;color:white;background:radial-gradient(circle at 79% 45%,rgba(170,160,194,.22),transparent 16%),radial-gradient(circle at 77% 47%,rgba(136,168,208,.1),transparent 30%),linear-gradient(145deg,#06142e,#0b2144 56%,#091932);overflow:hidden}.hero:after{content:"";position:absolute;inset:0;opacity:.23;background-image:radial-gradient(circle,rgba(255,255,255,.75) 0 1px,transparent 1.3px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent,#000 30%,transparent 96%)}.orbit{position:absolute;border:1px solid rgba(218,187,128,.25);border-radius:50%}.o1{width:320px;height:320px;right:-155px;top:120px}.o2{width:236px;height:236px;right:-88px;top:164px}.o3{width:154px;height:154px;right:-40px;top:207px;border-style:dotted}.core{position:absolute;right:28px;top:269px;width:19px;height:19px;border-radius:50%;background:#d8c7df;box-shadow:0 0 22px 9px rgba(211,188,221,.4),0 0 0 7px rgba(255,255,255,.06)}.dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold)}.d1{right:143px;top:188px}.d2{right:89px;top:322px}.d3{right:178px;top:348px}.brandbar{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:10px}.mark{width:47px;height:47px;border-radius:15px;border:1px solid rgba(224,204,167,.28);display:grid;place-items:center;background:#07172f;overflow:hidden}.mark svg{width:39px;height:39px}.brandtext b{font-family:Georgia,serif;font-size:13px;letter-spacing:.13em;font-weight:500;display:block}.brandtext small{display:block;margin-top:3px;color:#aebbd0;font-size:9px;letter-spacing:.18em}.lang{appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:white;border-radius:999px;padding:8px 10px;font-size:11px;outline:none}.lang option{color:#111}.profile{position:relative;z-index:2;margin-top:44px;max-width:286px}.profile h1{font:400 52px/1 Georgia,serif;margin:0 0 8px}.profile .sub{color:#a8b8d1;font-size:15px}.goldline{width:48px;height:2px;background:linear-gradient(90deg,var(--gold),#efd9a9);margin:28px 0 20px}.insight{font-size:18px;line-height:1.62;margin:0;color:#f5f6f8}.content{position:relative;z-index:4;margin-top:-62px;background:linear-gradient(#fbf7f0,#f7f1e8);border-radius:32px 32px 0 0;padding:25px 21px 30px;min-height:540px}.panel{display:none}.panel.active{display:block}.bigthree{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.58);border:1px solid rgba(190,161,107,.33);border-radius:23px;padding:17px 8px 15px;box-shadow:0 10px 30px rgba(17,35,61,.05)}.astro{text-align:center;position:relative}.astro:not(:last-child):after{content:"";position:absolute;top:31px;right:-12px;width:24px;border-top:1px dashed rgba(209,168,95,.58)}.ico{width:62px;height:62px;margin:auto auto 8px;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;background:#fffdfb;font:28px Georgia,serif}.sun{color:#c8973d}.moon{color:#6d92bf}.asc{color:#9a82b2}.astro b{display:block;font-size:12px;color:var(--ink)}.astro small{font-size:10px;color:var(--muted)}.quickgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:18px}.quick{border:1px solid var(--line);background:rgba(255,255,255,.54);border-radius:19px;min-height:84px;padding:12px;display:flex;align-items:center;gap:10px;color:var(--ink);text-align:left}.qico{width:48px;height:48px;flex:0 0 48px;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;background:#fff;font-size:21px}.q1{color:#274d7b}.q2{color:#9a82b2}.q3{color:#b58b49}.q4{color:#6d8faf}.quick b{font-size:13px}.arrow{margin-left:auto;font-size:20px}.chart{position:relative;width:100%;min-height:218px;margin-top:18px;border:0;border-radius:22px;overflow:hidden;padding:19px;text-align:left;color:white;background:linear-gradient(145deg,#091b39,#0e2b53);box-shadow:0 15px 30px rgba(8,26,54,.16)}.chart h3{font:400 22px Georgia,serif;margin:0}.chart p{color:#9eb0ca;font-size:11px;margin:5px 0}.wheel{position:absolute;left:-27px;bottom:-65px;width:255px;height:255px;opacity:.92}.wheel circle,.wheel line,.wheel polygon{fill:none;stroke:#d3ae67;stroke-width:1}.wheel .soft{stroke:#7897bd;opacity:.55}.wheel text{fill:#d7b56f;font:11px Georgia,serif}.leaf{position:absolute;right:3px;bottom:-3px;width:125px;height:125px;opacity:.14}.ask{width:100%;margin-top:17px;border:0;border-radius:18px;padding:17px 22px;background:linear-gradient(110deg,#0b1d3d,#143963);color:white;font-size:17px;box-shadow:0 12px 24px rgba(8,26,54,.14)}.ask i{font-style:normal;color:#e4b662;margin-left:12px}.title{font:400 29px Georgia,serif;margin:7px 0 5px}.subtext{font-size:13px;line-height:1.5;color:var(--muted);margin:0 0 18px}.card{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:20px;padding:17px;margin:12px 0}.card h3{font:400 20px Georgia,serif;margin:0 0 7px}.card p{font-size:13px;line-height:1.55;color:#53627a;margin:0}.form{display:grid;gap:12px}.field{display:grid;gap:6px}.field label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}input,textarea{width:100%;border:1px solid var(--line);background:#fffdfa;border-radius:14px;padding:13px;color:var(--ink);outline:none}textarea{min-height:90px;resize:vertical}.primary{width:100%;border:0;border-radius:15px;padding:14px 18px;background:var(--navy2);color:white}.tarot{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.tcard{aspect-ratio:.72;border-radius:17px;background:linear-gradient(145deg,#0a1c3a,#183b66);border:1px solid rgba(209,168,95,.35);display:grid;place-items:center;color:#d4ad65;font:25px Georgia,serif;box-shadow:0 10px 25px rgba(8,26,54,.12);padding:8px;text-align:center}.tcard.revealed{background:linear-gradient(145deg,#fdf9f1,#f2e7d5);color:#193354;border-color:#d5bd91;font-size:13px;line-height:1.35}.bottom{position:fixed;z-index:20;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,460px);height:82px;border-radius:28px 28px 0 0;background:linear-gradient(#0b1c38,#07172f);display:grid;grid-template-columns:repeat(5,1fr);padding:10px 12px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(8,26,54,.18)}.nav{border:0;background:transparent;color:#91aad0;display:grid;place-items:center;gap:2px;padding:4px 0;position:relative}.nav svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.7}.nav span{font-size:8px}.nav.active{color:#f6f2e9}.nav.active:after{content:"";position:absolute;bottom:0;width:5px;height:5px;border-radius:50%;background:var(--gold)}.toast{position:fixed;z-index:40;left:50%;bottom:92px;transform:translate(-50%,20px);opacity:0;background:#122b4d;color:white;padding:10px 15px;border-radius:999px;font-size:12px;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
-
-.brand-logo{display:block;width:112px;max-width:28vw;height:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,.22))}
-.brandbar{align-items:flex-start}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Child Astrology - Begrijp je kind nog beter">
+    <title>Child Astrology - Ella Kristioglo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
 <body>
-<div class="app">
-<section class="hero">
-<div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"></div><div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div>
-<div class="brandbar"><div class="brand"><img class="brand-logo" src="assets/child-astrology-logo.png" alt="Child Astrology · Ella Kristioglo"></div><select class="lang" id="lang"><option value="en">EN</option><option value="nl">NL</option><option value="ru">RU</option><option value="uk">UA</option></select></div>
-<div class="profile"><h1 id="heroName">Victoria</h1><div class="sub" data-i="profile">Personal profile</div><div class="goldline"></div><p class="insight" data-i="insight">A sensitive observer with a vivid inner world and a subtle way of reading the people around her.</p></div>
-</section>
-<main class="content">
-<section class="panel active" id="home">
-<div class="bigthree"><div class="astro"><div class="ico sun">☉</div><b data-i="sun">Sun</b><small>Leo</small></div><div class="astro"><div class="ico moon">☾</div><b data-i="moon">Moon</b><small>Cancer</small></div><div class="astro"><div class="ico asc">↗</div><b data-i="asc">Rising</b><small>Libra</small></div></div>
-<div class="quickgrid"><button class="quick detail" data-kind="character"><span class="qico q1">✦</span><b data-i="character">Character</b><span class="arrow">›</span></button><button class="quick detail" data-kind="emotions"><span class="qico q2">♡</span><b data-i="emotions">Emotions</b><span class="arrow">›</span></button><button class="quick detail" data-kind="strengths"><span class="qico q3">✧</span><b data-i="strengths">Strengths</b><span class="arrow">›</span></button><button class="quick detail" data-kind="learning"><span class="qico q4">▤</span><b data-i="learning">Learning</b><span class="arrow">›</span></button></div>
-<button class="chart" data-go="chart"><h3 data-i="chart">Birth chart</h3><p data-i="chartSub">Planetary positions, houses and key aspects</p><svg class="wheel" viewBox="0 0 260 260"><circle cx="130" cy="130" r="105"/><circle class="soft" cx="130" cy="130" r="83"/><circle class="soft" cx="130" cy="130" r="58"/><g class="soft"><line x1="130" y1="25" x2="130" y2="235"/><line x1="25" y1="130" x2="235" y2="130"/><line x1="56" y1="56" x2="204" y2="204"/><line x1="204" y1="56" x2="56" y2="204"/></g><polygon points="130,45 190,96 173,174 100,199 64,127 99,77"/><text x="126" y="19">♈</text><text x="208" y="62">♋</text><text x="225" y="136">♎</text><text x="126" y="251">♑</text></svg><svg class="leaf" viewBox="0 0 120 120"><path d="M14 108C44 78 64 46 92 12M45 74C32 70 27 59 29 48M61 57C77 58 87 49 92 37M32 90C21 86 17 76 19 66" fill="none" stroke="#d6b56f"/></svg></button>
-<button class="ask" data-go="guide"><span data-i="ask">Ask about your child</span><i>✦</i></button>
-</section>
-<section class="panel" id="chart"><h2 class="title" data-i="chart">Birth chart</h2><p class="subtext" data-i="chartLong">A calm technical view of the chart, with clear explanations for everyday life.</p><div class="chart" style="height:330px"><h3>Natal architecture</h3><p id="birthMeta">03 Aug 2025 · 07:16 · Haarlem</p><svg class="wheel" viewBox="0 0 260 260" style="width:315px;height:315px;left:53px;bottom:-58px"><circle cx="130" cy="130" r="105"/><circle class="soft" cx="130" cy="130" r="91"/><circle class="soft" cx="130" cy="130" r="68"/><circle class="soft" cx="130" cy="130" r="32"/><g class="soft"><line x1="130" y1="25" x2="130" y2="235"/><line x1="25" y1="130" x2="235" y2="130"/><line x1="56" y1="56" x2="204" y2="204"/><line x1="204" y1="56" x2="56" y2="204"/><line x1="39" y1="79" x2="221" y2="181"/></g><polygon points="130,45 190,96 173,174 100,199 64,127 99,77"/></svg></div><div class="card"><h3>☉ <span data-i="sun">Sun</span> · Leo</h3><p data-i="sunTxt">Core drive, confidence and the way the child wants to shine and be recognised.</p></div><div class="card"><h3>☾ <span data-i="moon">Moon</span> · Cancer</h3><p data-i="moonTxt">Emotional safety, recovery, familiarity and the closeness that helps the child settle.</p></div><div class="card"><h3>↗ <span data-i="asc">Rising</span> · Libra</h3><p data-i="ascTxt">The first approach to new situations, people and unfamiliar environments.</p></div></section>
-<section class="panel" id="tarot"><h2 class="title">Tarot</h2><p class="subtext" data-i="tarotSub">A reflective three-card spread for the adult: what to notice, what to soften, and what may help next.</p><div class="tarot"><div class="tcard" id="t1">✦</div><div class="tcard" id="t2">EK</div><div class="tcard" id="t3">✦</div></div><button class="primary" id="draw" data-i="draw">Draw 3 cards</button><div class="card"><h3 data-i="reflect">Reflection, not prediction</h3><p data-i="reflectTxt">The cards help form better questions. They do not diagnose, read a child's mind, or decide medical and safety matters.</p></div></section>
-<section class="panel" id="guide"><h2 class="title" data-i="ask">Ask about your child</h2><p class="subtext" data-i="guideSub">Describe a real situation. The answer should connect the chart with what you actually observe, without turning astrology into a label.</p><div class="card"><div class="form"><div class="field"><label data-i="question">Your question</label><textarea id="question" placeholder="Why does my child get overwhelmed after daycare?"></textarea></div><button class="primary" id="answer" data-i="create">Create guidance</button></div></div><div class="card"><h3 data-i="guidance">Guidance</h3><p id="answerText" data-i="empty">Your personalised note will appear here after you enter a question.</p></div></section>
-<section class="panel" id="profile"><h2 class="title" data-i="childProfile">Child profile</h2><p class="subtext" data-i="profileSub">Birth data and real family context. This prototype stores information only in this browser.</p><div class="card"><div class="form"><div class="field"><label data-i="name">Name</label><input id="name" value="Victoria"></div><div class="field"><label data-i="dob">Date of birth</label><input id="dob" type="date" value="2025-08-03"></div><div class="field"><label data-i="time">Exact birth time</label><input id="time" type="time" value="07:16"></div><div class="field"><label data-i="place">Place of birth</label><input id="place" value="Haarlem, Netherlands"></div><div class="field"><label data-i="context">What should the app understand about your child?</label><textarea id="context"></textarea></div><button class="primary" id="save" data-i="save">Save profile</button></div></div><div class="card"><p data-i="privacy">Astrology and Tarot are reflective tools here. They do not replace a doctor, psychologist, speech therapist, teacher or another qualified professional.</p></div></section>
-<section class="panel" id="detail"><button class="primary" id="back" style="width:auto;padding:9px 14px">‹ <span data-i="back">Back</span></button><h2 class="title" id="detailTitle">Character</h2><p class="subtext" id="detailLead"></p><div class="card"><h3 data-i="observe">What to observe</h3><p id="observeText"></p></div><div class="card"><h3 data-i="try">Try this</h3><p id="tryText"></p></div></section>
-</main></div>
-<nav class="bottom"><button class="nav active" data-go="home"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9A1.5 1.5 0 0 1 19 21h-5v-6h-4v6H5a1.5 1.5 0 0 1-1.5-1.5z"/></svg><span>HOME</span></button><button class="nav" data-go="chart"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(-25 12 12)"/><circle cx="18" cy="7" r="1.2"/></svg><span>CHART</span></button><button class="nav" data-go="tarot"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 5.2L20 9l-4.2 3.7L17 18l-5-2.8L7 18l1.2-5.3L4 9l5.8-.8z"/></svg><span>TAROT</span></button><button class="nav" data-go="guide"><svg viewBox="0 0 24 24"><path d="M4 5.5c3-1 5.6-.6 8 1.2v13c-2.4-1.8-5-2.2-8-1.2zM20 5.5c-3-1-5.6-.6-8 1.2v13c2.4-1.8 5-2.2 8-1.2z"/></svg><span>GUIDE</span></button><button class="nav" data-go="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.8-4.2 3.3-6.4 7.5-6.4s6.7 2.2 7.5 6.4"/></svg><span>PROFILE</span></button></nav><div class="toast" id="toast">Saved</div>
-<script>
-const L={en:{profile:"Personal profile",insight:"A sensitive observer with a vivid inner world and a subtle way of reading the people around her.",sun:"Sun",moon:"Moon",asc:"Rising",character:"Character",emotions:"Emotions",strengths:"Strengths",learning:"Learning",chart:"Birth chart",chartSub:"Planetary positions, houses and key aspects",ask:"Ask about your child",chartLong:"A calm technical view of the chart, with clear explanations for everyday life.",sunTxt:"Core drive, confidence and the way the child wants to shine and be recognised.",moonTxt:"Emotional safety, recovery, familiarity and the closeness that helps the child settle.",ascTxt:"The first approach to new situations, people and unfamiliar environments.",tarotSub:"A reflective three-card spread for the adult: what to notice, what to soften, and what may help next.",draw:"Draw 3 cards",reflect:"Reflection, not prediction",reflectTxt:"The cards help form better questions. They do not diagnose, read a child's mind, or decide medical and safety matters.",guideSub:"Describe a real situation. The answer should connect the chart with what you actually observe, without turning astrology into a label.",question:"Your question",create:"Create guidance",guidance:"Guidance",empty:"Your personalised note will appear here after you enter a question.",childProfile:"Child profile",profileSub:"Birth data and real family context. This prototype stores information only in this browser.",name:"Name",dob:"Date of birth",time:"Exact birth time",place:"Place of birth",context:"What should the app understand about your child?",save:"Save profile",privacy:"Astrology and Tarot are reflective tools here. They do not replace a doctor, psychologist, speech therapist, teacher or another qualified professional.",back:"Back",observe:"What to observe",try:"Try this"},nl:{profile:"Persoonlijk profiel",insight:"Een gevoelige observator met een rijke binnenwereld en een subtiele manier om mensen om haar heen aan te voelen.",sun:"Zon",moon:"Maan",asc:"Ascendant",character:"Karakter",emotions:"Emoties",strengths:"Sterke kanten",learning:"Leren",chart:"Geboortehoroscoop",chartSub:"Planeten, huizen en belangrijke aspecten",ask:"Vraag over je kind",chartLong:"Een rustige technische weergave van de horoscoop met duidelijke uitleg voor het dagelijks leven.",sunTxt:"Kernenergie, zelfvertrouwen en de manier waarop het kind wil stralen en gezien wil worden.",moonTxt:"Emotionele veiligheid, herstel en vertrouwdheid.",ascTxt:"De eerste benadering van nieuwe situaties, mensen en omgevingen.",tarotSub:"Een reflectieve legging voor de volwassene: wat opvalt, wat zachter kan en wat kan helpen.",draw:"Trek 3 kaarten",reflect:"Reflectie, geen voorspelling",reflectTxt:"Kaarten helpen betere vragen te vormen. Ze stellen geen diagnose en beslissen niets over gezondheid of veiligheid.",guideSub:"Beschrijf een echte situatie. Het antwoord verbindt de horoscoop met wat je werkelijk observeert.",question:"Jouw vraag",create:"Maak begeleiding",guidance:"Begeleiding",empty:"Je persoonlijke notitie verschijnt hier na je vraag.",childProfile:"Profiel van het kind",profileSub:"Geboortegegevens en echte gezinscontext. Dit prototype bewaart gegevens alleen in deze browser.",name:"Naam",dob:"Geboortedatum",time:"Exacte geboortetijd",place:"Geboorteplaats",context:"Wat moet de app over je kind begrijpen?",save:"Profiel opslaan",privacy:"Astrologie en Tarot zijn reflectieve hulpmiddelen en vervangen geen professional.",back:"Terug",observe:"Wat observeren",try:"Probeer dit"},ru:{profile:"Персональный профиль",insight:"Чуткий наблюдатель с ярким внутренним миром и тонким восприятием людей вокруг.",sun:"Солнце",moon:"Луна",asc:"Асцендент",character:"Характер",emotions:"Эмоции",strengths:"Сильные стороны",learning:"Обучение",chart:"Натальная карта",chartSub:"Планеты, дома и ключевые аспекты",ask:"Задать вопрос о ребёнке",chartLong:"Спокойный технический вид карты с понятными объяснениями для повседневной жизни.",sunTxt:"Внутренний импульс, уверенность и способ проявлять себя.",moonTxt:"Эмоциональная безопасность, восстановление и знакомая среда.",ascTxt:"Первый способ входить в новые ситуации и контактировать с людьми.",tarotSub:"Рефлексивный расклад для взрослого: что заметить, что смягчить и что может помочь.",draw:"Вытянуть 3 карты",reflect:"Размышление, не предсказание",reflectTxt:"Карты помогают формулировать вопросы. Они не ставят диагноз и не решают вопросы здоровья и безопасности.",guideSub:"Опишите реальную ситуацию. Ответ соединяет карту с тем, что вы действительно наблюдаете.",question:"Ваш вопрос",create:"Создать рекомендацию",guidance:"Рекомендация",empty:"Персональная заметка появится здесь после ввода вопроса.",childProfile:"Профиль ребёнка",profileSub:"Данные рождения и реальный семейный контекст. Прототип хранит данные только в браузере.",name:"Имя",dob:"Дата рождения",time:"Точное время рождения",place:"Место рождения",context:"Что приложению важно понимать о ребёнке?",save:"Сохранить профиль",privacy:"Астрология и Таро являются инструментами размышления и не заменяют специалиста.",back:"Назад",observe:"Что наблюдать",try:"Попробуйте"},uk:{profile:"Персональний профіль",insight:"Чутливий спостерігач із яскравим внутрішнім світом і тонким відчуттям людей навколо.",sun:"Сонце",moon:"Місяць",asc:"Асцендент",character:"Характер",emotions:"Емоції",strengths:"Сильні сторони",learning:"Навчання",chart:"Натальна карта",chartSub:"Планети, будинки та ключові аспекти",ask:"Запитати про дитину",chartLong:"Спокійний технічний вигляд карти з простими поясненнями для щоденного життя.",sunTxt:"Внутрішній імпульс, упевненість і спосіб проявляти себе.",moonTxt:"Емоційна безпека, відновлення та знайоме середовище.",ascTxt:"Перший спосіб входити в нові ситуації та контактувати з людьми.",tarotSub:"Рефлексивний розклад для дорослого: що помітити, що пом’якшити та що може допомогти.",draw:"Витягнути 3 карти",reflect:"Роздуми, не передбачення",reflectTxt:"Карти допомагають формулювати питання. Вони не ставлять діагноз і не вирішують питання здоров’я чи безпеки.",guideSub:"Опишіть реальну ситуацію. Відповідь поєднує карту з тим, що ви справді спостерігаєте.",question:"Ваше запитання",create:"Створити рекомендацію",guidance:"Рекомендація",empty:"Персональна нотатка з’явиться тут після введення запитання.",childProfile:"Профіль дитини",profileSub:"Дані народження та реальний сімейний контекст. Прототип зберігає дані лише у браузері.",name:"Ім’я",dob:"Дата народження",time:"Точний час народження",place:"Місце народження",context:"Що застосунку важливо розуміти про дитину?",save:"Зберегти профіль",privacy:"Астрологія і Таро є інструментами для роздумів і не замінюють фахівця.",back:"Назад",observe:"Що спостерігати",try:"Спробуйте"}};
-const D={character:["Character","Notice how the child starts something new, handles limits and reacts when attention shifts away.","Offer a clear choice between two options and allow a little time before repeating the request."],emotions:["Emotions","Watch what happens before overload: noise, transitions, hunger, tiredness, separation or too many words.","Use fewer words, lower stimulation and give a predictable next step."],strengths:["Strengths","Look for persistence, empathy, imagination, humour and initiative rather than only performance.","Name the specific strength you saw instead of using a general label."],learning:["Learning","Observe whether understanding improves through pictures, conversation, movement, repetition or a clear sequence.","Change the format before assuming the child cannot do the task."]};
-const cards=["The Star","The Empress","Strength","The Hermit","Temperance","The Sun","The Moon","Justice","The World","The Chariot","The High Priestess","The Fool","The Magician","The Lovers"];
-const panels=[...document.querySelectorAll('.panel')];function show(id){panels.forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.go===id));document.querySelector('.content').scrollIntoView({behavior:'smooth',block:'start'})}document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));document.querySelectorAll('.detail').forEach(b=>b.onclick=()=>{let d=D[b.dataset.kind];detailTitle.textContent=d[0];detailLead.textContent=d[1];observeText.textContent=d[1];tryText.textContent=d[2];show('detail')});back.onclick=()=>show('home');function toast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1500)}draw.onclick=()=>{let a=[...cards].sort(()=>Math.random()-.5).slice(0,3);['t1','t2','t3'].forEach((id,i)=>{let e=document.getElementById(id);e.classList.add('revealed');e.textContent=a[i]});toast('3 cards')};answer.onclick=()=>{let q=question.value.trim();if(!q){toast('Enter a question');return}answerText.textContent="Start with what happened just before, what the child did, and what helped recovery. Use the chart as a hypothesis rather than a verdict. Test one small change for several days and compare the child's response."};save.onclick=()=>{let p={name:name.value,dob:dob.value,time:time.value,place:place.value,context:context.value};localStorage.setItem('childAstroProfile',JSON.stringify(p));applyProfile(p);toast('Saved')};function applyProfile(p){if(!p)return;heroName.textContent=p.name||'Child';birthMeta.textContent=[p.dob,p.time,p.place].filter(Boolean).join(' · ')}let saved=JSON.parse(localStorage.getItem('childAstroProfile')||'null');if(saved){['name','dob','time','place','context'].forEach(k=>document.getElementById(k).value=saved[k]||'');applyProfile(saved)}let current=localStorage.getItem('childAstroLang')||'en';function setLang(l){current=l;lang.value=l;document.documentElement.lang=l;localStorage.setItem('childAstroLang',l);document.querySelectorAll('[data-i]').forEach(e=>{let v=L[l]?.[e.dataset.i];if(v)e.textContent=v})}lang.onchange=e=>setLang(e.target.value);setLang(current);
-</script>
-</body></html>
+    <!-- Звездный фон -->
+    <div class="stars"></div>
+    
+    <!-- Навигация -->
+    <nav class="sidebar">
+        <div class="nav-header">
+            <img src="assets/logo.png" alt="Child Astrology" class="logo">
+            <span class="app-title">Child Astrology</span>
+        </div>
+        
+        <div class="nav-items">
+            <div class="nav-item active" data-screen="home">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-text">Home</span>
+            </div>
+            <div class="nav-item" data-screen="kinderen">
+                <span class="nav-icon">👶</span>
+                <span class="nav-text">Kinderen</span>
+            </div>
+            <div class="nav-item" data-screen="notities">
+                <span class="nav-icon"></span>
+                <span class="nav-text">Notities</span>
+            </div>
+            <div class="nav-item" data-screen="methode">
+                <span class="nav-icon"></span>
+                <span class="nav-text">Methode</span>
+            </div>
+            <div class="nav-item" data-screen="tarot">
+                <span class="nav-icon">🎴</span>
+                <span class="nav-text">Tarot</span>
+            </div>
+            <div class="nav-item" data-screen="consultaties">
+                <span class="nav-icon">💬</span>
+                <span class="nav-text">Consultaties</span>
+            </div>
+            <div class="nav-item" data-screen="instellingen">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">Instellingen</span>
+            </div>
+            <div class="nav-item" data-screen="over">
+                <span class="nav-icon">👤</span>
+                <span class="nav-text">Over</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="content">
+        
+        <!-- ЭКРАН: HOME -->
+        <section id="home" class="screen active">
+            <div class="hero">
+                <h1>Begrijp je kind nog beter</h1>
+                <p class="subtitle">Persoonlijke ouderbegeleiding door astrologie</p>
+            </div>
+
+            <div class="quick-actions">
+                <div class="action-card" onclick="showScreen('kinderen')">
+                    <div class="action-icon"></div>
+                    <h3>Mijn kinderen</h3>
+                    <p>Beheer profielen en observaties</p>
+                </div>
+
+                <div class="action-card" onclick="showScreen('notities')">
+                    <div class="action-icon">📝</div>
+                    <h3>Nieuwe notitie</h3>
+                    <p>Schrijf een observatie op</p>
+                </div>
+
+                <div class="action-card" onclick="showScreen('tarot')">
+                    <div class="action-icon">🎴</div>
+                    <h3>Tarot voor reflectie</h3>
+                    <p>Trek een kaart voor vandaag</p>
+                </div>
+            </div>
+
+            <div class="daily-widget">
+                <h2>🌟 Vandaag voor Vicky</h2>
+                <div class="moon-phase">
+                    <span class="moon-icon">🌙</span>
+                    <p>Maan in Waterman - perfecte dag voor creatieve activiteiten</p>
+                </div>
+                <div class="daily-tip">
+                    <strong>Tip van de dag:</strong>
+                    <p>Let op haar reactie op nieuwe situaties. Dit geeft inzicht in haar natuurlijke aanpak.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: KINDEREN (Профили детей) -->
+        <section id="kinderen" class="screen">
+            <h1>Mijn kinderen</h1>
+            
+            <div class="children-list">
+                <div class="child-profile" data-child-id="vicky">
+                    <div class="child-avatar">
+                        <span class="avatar-letter">V</span>
+                    </div>
+                    <div class="child-info">
+                        <h2>Vicky</h2>
+                        <p class="birth-date">3 augustus 2026 • 07:16</p>
+                        <p class="birth-place">Haarlem, Nederland</p>
+                        <div class="zodiac-signs">
+                            <span class="zodiac-badge">♌ Leeuw</span>
+                            <span class="zodiac-badge">♏ Schorpioen</span>
+                        </div>
+                    </div>
+                    <button class="btn-edit" onclick="editChild('vicky')">️</button>
+                </div>
+
+                <button class="btn-add-child" onclick="addChild()">
+                    <span class="add-icon">+</span>
+                    <span>Kind toevoegen</span>
+                </button>
+            </div>
+
+            <div class="child-details" id="vicky-details">
+                <h3>Over Vicky</h3>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <strong>Zon in Leeuw</strong>
+                        <p>Natuurlijk leiderschap, warmte en creativiteit</p>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Maan in Schorpioen</strong>
+                        <p>Diepe emoties, intensiteit en sterke intuïtie</p>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Ascendant</strong>
+                        <p>Wordt berekend op basis van geboortetijd</p>
+                    </div>
+                </div>
+
+                <h3>Recente notities</h3>
+                <div class="notes-preview" id="vicky-notes">
+                    <p class="no-notes">Nog geen notities. <a href="#" onclick="showScreen('notities')">Voeg er een toe →</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: NOTITIES (Пометки) -->
+        <section id="notities" class="screen">
+            <h1>Notities & Observaties</h1>
+
+            <div class="note-form">
+                <h2>Nieuwe notitie</h2>
+                <div class="form-group">
+                    <label>Kies een kind:</label>
+                    <select id="note-child">
+                        <option value="vicky">Vicky</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Onderwerp:</label>
+                    <input type="text" id="note-title" placeholder="Bijv. Eerste dag op school">
+                </div>
+                <div class="form-group">
+                    <label>Observatie:</label>
+                    <textarea id="note-content" rows="5" placeholder="Wat heb je opgemerkt?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Stemming:</label>
+                    <div class="mood-selector">
+                        <button class="mood-btn" data-mood="happy">😊</button>
+                        <button class="mood-btn" data-mood="calm">😌</button>
+                        <button class="mood-btn" data-mood="anxious">😰</button>
+                        <button class="mood-btn" data-mood="angry">😠</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tags (gescheiden door komma's):</label>
+                    <input type="text" id="note-tags" placeholder="gedrag, emoties, school">
+                </div>
+                <button class="btn-primary" onclick="saveNote()">💾 Opslaan</button>
+            </div>
+
+            <div class="notes-list" id="all-notes">
+                <h2>Alle notities</h2>
+                <div class="notes-container">
+                    <p class="no-notes">Nog geen notities opgeslagen</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: METHODE (Метод) -->
+        <section id="methode" class="screen">
+            <h1>De Child Astrology-methode</h1>
+            <p class="method-intro">Observeren vóór interpreteren</p>
+
+            <div class="method-steps">
+                <div class="method-step" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Feit: wat doet het kind precies?</h3>
+                        <p>Observeer zonder oordeel. Beschrijf alleen wat je ziet en hoort.</p>
+                        <div class="step-example">
+                            <strong>Voorbeeld:</strong> "Vicky huilt wanneer andere kinderen haar speelgoed afpakken"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Context: wat gebeurde ervoor?</h3>
+                        <p>Beschrijf de situatie, de omgeving, wie er aanwezig waren.</p>
+                        <div class="step-example">
+                            <strong>Voorbeeld:</strong> "Ze speelde rustig in de hoek toen twee kinderen kwamen"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Symboliek: welk thema keert terug?</h3>
+                        <p>Herken je een patroon? Welk astrologisch thema past hierbij?</p>
+                        <div class="step-example">
+                            <strong>Voorbeeld:</strong> "Dit past bij haar Maan in Schorpioen - intense emoties bij verlies"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Toets: betekent het gezin dit?</h3>
+                        <p>Bespreek met je partner of gezin. Herkennen zij dit patroon?</p>
+                        <div class="step-example">
+                            <strong>Voorbeeld:</strong> "Papa herkent dit ook bij zichzelf"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-step" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Veiligheid: is professionele hulp nodig?</h3>
+                        <p>Beoordeel of de situatie beyond wat je zelf kunt begeleiden.</p>
+                        <div class="step-example">
+                            <strong>Voorbeeld:</strong> "Nee, dit is normaal ontwikkelingsgedrag"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-step" data-step="6">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Experiment: welke stap herhalen we 7-14 dagen?</h3>
+                        <p>Kies één concrete actie om te proberen en observeer het effect.</p>
+                        <div class="step-example">
+                            <strong>Voorbeeld:</strong> "Ik ga haar eerst vragen wat ze voelt voordat ik reageer"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-progress">
+                <h3>Jouw voortgang</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="method-progress" style="width: 0%"></div>
+                </div>
+                <p id="progress-text">0 van 6 stappen voltooid</p>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: TAROT (Таро) -->
+        <section id="tarot" class="screen">
+            <h1>Tarot voor reflectie</h1>
+            <p class="tarot-intro">Kaarten worden programmatisch en willekeurig gekozen uit een volledige set van 78 kaarten. Ze voorspellen het lot van een kind niet, maar bieden een andere blik op de situatie.</p>
+
+            <div class="tarot-options">
+                <div class="tarot-option" onclick="drawCards(1)">
+                    <div class="tarot-card-preview">
+                        <span class="card-symbol">◇</span>
+                    </div>
+                    <h3>Eén kaart</h3>
+                    <p>Een snelle focus voor vandaag</p>
+                </div>
+
+                <div class="tarot-option" onclick="drawCards(3)">
+                    <div class="tarot-card-preview">
+                        <span class="card-symbol">◇ ◇ ◇</span>
+                    </div>
+                    <h3>Drie kaarten</h3>
+                    <p>Situatie - Actie - Mogelijkheid</p>
+                </div>
+            </div>
+
+            <div class="tarot-question">
+                <label>Waarover wil je reflecteren?</label>
+                <textarea id="tarot-question-text" rows="3" placeholder="Stel je vraag of beschrijf de situatie..."></textarea>
+            </div>
+
+            <div class="tarot-result" id="tarot-result">
+                <div class="cards-container" id="cards-container"></div>
+                <div class="interpretation" id="interpretation"></div>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: CONSULTATIES (Консультации) -->
+        <section id="consultaties" class="screen">
+            <h1>Persoonlijke consultaties</h1>
+
+            <div class="consultation-info">
+                <div class="info-card">
+                    <h2>Stuur Ella persoonlijk een bericht</h2>
+                    <p>Wil je jouw situatie persoonlijk bespreken? Open WhatsApp en stuur Ella een bericht.</p>
+                    <p class="privacy-note">🔒 Het profiel en de gegevens van het kind worden nooit automatisch toegevoegd.</p>
+                </div>
+
+                <a href="https://wa.me/31612554778" target="_blank" class="whatsapp-btn">
+                    <span class="wa-icon">📱</span>
+                    <span>Bericht via WhatsApp</span>
+                </a>
+            </div>
+
+            <div class="consultation-types">
+                <h2>Soorten consultaties</h2>
+                <div class="type-card">
+                    <h3>🌟 Eerste consultatie</h3>
+                    <p>Complete analyse van de geboortehoroscoop van je kind</p>
+                    <span class="duration">60 minuten</span>
+                </div>
+                <div class="type-card">
+                    <h3> Vervolgconsultatie</h3>
+                    <p>Bespreking van observaties en verdieping</p>
+                    <span class="duration">45 minuten</span>
+                </div>
+                <div class="type-card">
+                    <h3>‍👩‍👧 Gezinsconsultatie</h3>
+                    <p>Samenstelling en dynamiek binnen het gezin</p>
+                    <span class="duration">90 minuten</span>
+                </div>
+            </div>
+
+            <div class="pre-fill-form">
+                <h3>📋 Bericht voorbereiden</h3>
+                <p>Vul onderstaande gegevens in om je bericht voor te bereiden:</p>
+                <div class="form-group">
+                    <label>Naam van het kind:</label>
+                    <input type="text" id="consult-child" value="Vicky">
+                </div>
+                <div class="form-group">
+                    <label>Geboortedatum:</label>
+                    <input type="text" id="consult-date" value="03-08-2026">
+                </div>
+                <div class="form-group">
+                    <label>Je vraag of situatie:</label>
+                    <textarea id="consult-question" rows="4" placeholder="Beschrijf kort waar je hulp bij nodig hebt..."></textarea>
+                </div>
+                <button class="btn-primary" onclick="prepareWhatsAppMessage()"> Bericht openen in WhatsApp</button>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: INSTELLINGEN (Настройки) -->
+        <section id="instellingen" class="screen">
+            <h1>Instellingen</h1>
+
+            <div class="settings-section">
+                <h2> Installeren op je telefoon</h2>
+                <p>Voeg de app toe aan je beginscherm en open hem als een gewone app.</p>
+                <button class="btn-install" onclick="installApp()">
+                    <span>⬇️</span>
+                    <span>App installeren</span>
+                </button>
+                <div class="install-instructions">
+                    <details>
+                        <summary>Installatie-instructies</summary>
+                        <p><strong>iOS (iPhone/iPad):</strong></p>
+                        <ol>
+                            <li>Open deze pagina in Safari</li>
+                            <li>Tik op het deel-icoon (vierkant met pijl)</li>
+                            <li>Kies "Voeg toe aan beginscherm"</li>
+                        </ol>
+                        <p><strong>Android:</strong></p>
+                        <ol>
+                            <li>Open deze pagina in Chrome</li>
+                            <li>Tik op het menu (drie puntjes)</li>
+                            <li>Kies "Toevoegen aan startscherm"</li>
+                        </ol>
+                    </details>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>🌐 Taal van de app</h2>
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="nl">🇳🇱 Nederlands</button>
+                    <button class="lang-btn" data-lang="ru">🇷 Русский</button>
+                    <button class="lang-btn" data-lang="ua">🇺 Українська</button>
+                    <button class="lang-btn" data-lang="en">🇧 English</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2> Gegevens & privacy</h2>
+                <p>Consultatiekaarten worden alleen op dit apparaat bewaard. Deel de link niet terwijl cliëntgegevens openstaan.</p>
+                <div class="privacy-actions">
+                    <button class="btn-secondary" onclick="exportData()">️ Back-up downloaden</button>
+                    <button class="btn-secondary" onclick="importData()">️ Back-up herstellen</button>
+                    <button class="btn-danger" onclick="clearAllData()">🗑️ Alle gegevens verwijderen</button>
+                </div>
+                <p class="data-count">💾 Totaal: <span id="data-count">0</span> notities opgeslagen</p>
+            </div>
+        </section>
+
+        <!-- ЭКРАН: OVER (О приложении) -->
+        <section id="over" class="screen">
+            <h1>Over de app</h1>
+
+            <div class="about-author">
+                <h2>Ella Kristioglo</h2>
+                <p class="author-title">Orthopedagoog • Astroloog • Moeder</p>
+                <p>Ella Kristioglo is de maker van het programma Child Astrology, specialist in orthopedagogiek en logopedie, astroloog en moeder van twee dochters. Door kennis over de ontwikkeling van kinderen te verbinden met astrologie en haar persoonlijke ervaring als moeder, ontwikkelde Ella een programma dat ouders helpt het karakter, de talenten en de emotionele behoeften van hun kind beter te begrijpen. Haar belangrijkste doel is ieder kind te helpen opgroeien in een sfeer van liefde, acceptatie en begrip.</p>
+                
+                <div class="author-values">
+                    <span class="value-badge">+ Liefde</span>
+                    <span class="value-badge">+ Acceptatie</span>
+                    <span class="value-badge">+ Begrip</span>
+                </div>
+            </div>
+
+            <div class="about-app">
+                <h2>Over de app</h2>
+                <p><strong>Versie:</strong> 2.0</p>
+                <p><strong>Originele methode van Ella</strong></p>
+                <p>Na het eerste bezoek zijn de belangrijkste schermen offline beschikbaar.</p>
+                
+                <div class="app-features">
+                    <h3>Functies:</h3>
+                    <ul>
+                        <li>✅ Profielen van kinderen beheren</li>
+                        <li>✅ Observaties noteren en taggen</li>
+                        <li>✅ 6-staps methode toepassen</li>
+                        <li>✅ Tarot voor reflectie</li>
+                        <li>✅ Persoonlijke consultaties</li>
+                        <li>✅ Alle gegevens lokaal opgeslagen</li>
+                        <li>✅ Offline beschikbaar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h2>Contact</h2>
+                <p> Email: ella@kristioglo.com</p>
+                <p>📱 WhatsApp: +31 6 12554778</p>
+                <p>🌐 Website: kodrebenka.eu.org</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
