@@ -1,0 +1,49 @@
+name: Install Child Astrology logo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-brand-logo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install-logo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Replace header brand with uploaded logo
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+
+          pattern = r'<div class="brandbar"><div class="brand">.*?</div></div><select class="lang"'
+          replacement = '<div class="brandbar"><div class="brand"><img class="brand-logo" src="assets/child-astrology-logo.webp" alt="Child Astrology · Ella Kristioglo"></div><select class="lang"'
+          html, count = re.subn(pattern, replacement, html, count=1, flags=re.S)
+          if count != 1:
+              raise SystemExit(f'Expected to replace one brand block, replaced {count}')
+
+          extra_css = '''\n.brand-logo{display:block;width:112px;max-width:28vw;height:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,.22))}\n.brandbar{align-items:flex-start}\n'''
+          if '.brand-logo{' not in html:
+              html = html.replace('</style>', extra_css + '</style>', 1)
+
+          path.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Commit logo update
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Use Child Astrology brand logo in header"
+          git push
